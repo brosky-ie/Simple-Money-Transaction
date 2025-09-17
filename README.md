@@ -1,5 +1,11 @@
 # Simple-Money-Transaction
 Basic atm transaction.  
 
-Read the Readme file   
+Use java IDE for runtime.
+
+Change the container class (Title after public class)
+
+The java file only contains the script.
+The class file is the java compiled script.
+When using VSC. Open terminal. Type cd "folder directory to your class file/java compiled script". Afterwards, open the terminal then type Java "file name i.e. PorkMenudo".
 
