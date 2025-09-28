@@ -1,11 +1,10 @@
-# Simple-Money-Transaction
-Basic atm transaction.  
+This is a basic ATM program written in Java.  
 
-Use java IDE for runtime.
+To run the program, use a Java IDE or the command line.
 
-Change the container class (Title after public class)
+If you change the class name (the word after `public class`), make sure the file name matches.
 
-The java file only contains the script.
-The class file is the java compiled script.
-When using VSC. Open terminal. Type cd "folder directory to your class file/java compiled script". Afterwards, open the terminal then type Java "file name i.e. PorkMenudo".
+In VS Code:
+1. Open the terminal and go to the folder where your `.class` file is saved. 
+2. Run the program by typing `java PorkMenudo` (or your class name) and pressing Enter.  
 
