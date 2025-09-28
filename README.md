@@ -13,4 +13,4 @@ If you want to make changes, use the source code file (`.java`):
 
 - Rename the file to match the class name (the word after `public class`).    
 - Compile the `.java` file with `javac PorkMenudo.java`.    
-- Then run the compiled program as above.  
+- Then run the compiled program as stated above.  
