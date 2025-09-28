@@ -1,4 +1,4 @@
-// Version 0.0.1
+// Version 0.0.2
 
 import java.util.Scanner;
 
@@ -7,6 +7,32 @@ public class PorkMenudo {
         Scanner input = new Scanner(System.in);
         double balance = 10000.00;
         int choice = 0;
+        int withdrawalCount = 0;
+        final int MAX_WITHDRAWALS = 3;
+
+        final String CORRECT_PIN = "1234";
+        int attempts = 3;
+        boolean loggedIn = false;
+
+        while (attempts > 0) {
+            System.out.print("Enter your PIN: ");
+            String enteredPin = input.nextLine();
+
+            if (enteredPin.equals(CORRECT_PIN)) {
+                loggedIn = true;
+                System.out.println("PIN accepted. Welcome!");
+                break;
+            } else {
+                attempts--;
+                System.out.println("Incorrect PIN. Attempts left: " + attempts);
+            }
+        }
+
+        if (!loggedIn) {
+            System.out.println("Too many incorrect attempts. Exiting...");
+            input.close();
+            System.exit(0);
+        }
 
         do {
             System.out.println("\n===== Menudo Express =====");
@@ -31,6 +57,16 @@ public class PorkMenudo {
                     break;
 
                 case 2:
+                    if (withdrawalCount >= MAX_WITHDRAWALS) {
+                        System.out.println("Withdrawal limit reached.");
+                        break;
+                    }
+
+                    if (balance == 500) {    
+                        System.out.println("Cannot withdraw. Minimum balance of 500 must be maintained.");
+                        break;
+                    }
+                    
                     while (true) {
                         System.out.print("Withdraw amount: ");
                         String withdrawInput = input.nextLine();
@@ -42,8 +78,11 @@ public class PorkMenudo {
                                 System.out.println("Amount must be more than 0.");
                             } else if (amount > balance) {
                                 System.out.println("Not enough balance.");
+                            } else if ((balance - amount) < 500) {
+                                System.out.println("Cannot withdraw. Minimum balance of 500 must be maintained.");
                             } else {
                                 balance -= amount;
+                                withdrawalCount++;
                                 System.out.println("Withdrawn: " + amount);
                                 System.out.println("New balance: " + balance);
                                 break;
@@ -78,7 +117,7 @@ public class PorkMenudo {
 
                 case 4:
                     System.out.println("Thank you!");
-                    System.out.println("Have great day!");
+                    System.out.println("Have a great day!");
                     break;
 
                 default:
@@ -90,4 +129,3 @@ public class PorkMenudo {
         input.close();
     }
 }
-
