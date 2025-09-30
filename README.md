@@ -12,5 +12,5 @@ If you have the compiled `.class` file:
 If you want to make changes, use the source code file (`.java`):  
 
 - Rename the file to match the class name (the word after `public class`).    
-- Compile the `.java` file with `javac PorkMenudo.java`.    
+- Compile the `.java` file with `javac PorkMenudo.java` in the VS Code terminal.    
 - Then run the compiled program as stated above.  
