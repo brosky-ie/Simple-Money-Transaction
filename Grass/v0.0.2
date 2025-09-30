@@ -1,0 +1,173 @@
+// Version 0.0.2
+
+// Import the Scanner class to allow user input
+import java.util.Scanner;
+
+// Main class - you can name this anything, but it must match the filename
+public class PorkMenudo {
+    
+    // Main method - this is where the program starts
+    public static void main(String[] args) {
+
+        // Create a Scanner object to read user input from the keyboard
+        Scanner input = new Scanner(System.in);
+
+        // Set initial balance to 10,000.00
+        double balance = 10000.00;
+
+        // Variable to store user menu choice (1-4)
+        int choice = 0;
+
+        // Counter to track how many times the user has withdrawn
+        int withdrawalCount = 0;
+
+        // Constant for the maximum number of allowed withdrawals
+        final int MAX_WITHDRAWALS = 3;
+
+        // Constant for the correct PIN
+        final String CORRECT_PIN = "1234";
+
+        // Number of login attempts allowed
+        int attempts = 3;
+
+        // Boolean to track whether user successfully logged in
+        boolean loggedIn = false;
+
+        // PIN verification loop
+        while (attempts > 0) {
+            System.out.print("Enter your PIN: "); // Ask user to enter PIN
+            String enteredPin = input.nextLine(); // Read user input
+
+            if (enteredPin.equals(CORRECT_PIN)) { // Check if PIN is correct
+                loggedIn = true; // Mark user as logged in
+                System.out.println("PIN accepted. Welcome!");
+                break; // Exit the loop
+            } else {
+                attempts--; // Reduce remaining attempts
+                System.out.println("Incorrect PIN. Attempts left: " + attempts);
+            }
+        }
+
+        // If user failed to log in, end the program
+        if (!loggedIn) {
+            System.out.println("Too many incorrect attempts. Exiting...");
+            input.close(); // Close Scanner
+            System.exit(0); // Exit program
+        }
+
+        // Main menu loop - keeps running until the user chooses to exit
+        do {
+            // Display the menu
+            System.out.println("\n===== Menudo Express =====");
+            System.out.println("1. Check Balance");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Deposit");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice (1-4): ");
+
+            String userInput = input.nextLine(); // Read user menu choice
+
+            try {
+                // Try to convert input into an integer
+                choice = Integer.parseInt(userInput);
+            } catch (NumberFormatException e) {
+                // Handle invalid (non-number) input
+                System.out.println("Please enter a number from 1 to 4.");
+                continue; // Go back to the start of the loop
+            }
+
+            // Handle the user's menu choice
+            switch (choice) {
+
+                // Option 1: Check Balance
+                case 1:
+                    System.out.println("Balance: " + balance); // Show current balance
+                    break;
+
+                // Option 2: Withdraw
+                case 2:
+                    // Check if user has reached max number of withdrawals
+                    if (withdrawalCount >= MAX_WITHDRAWALS) {
+                        System.out.println("Withdrawal limit reached.");
+                        break;
+                    }
+
+                    // Ensure user has more than 500 left to withdraw
+                    if (balance == 500) {    
+                        System.out.println("Cannot withdraw. Minimum balance of 500 must be maintained.");
+                        break;
+                    }
+
+                    // Loop until a valid withdrawal amount is entered
+                    while (true) {
+                        System.out.print("Withdraw amount: ");
+                        String withdrawInput = input.nextLine(); // Read amount to withdraw
+
+                        try {
+                            double amount = Double.parseDouble(withdrawInput); // Convert to double
+
+                            // Check for invalid amounts
+                            if (amount <= 0) {
+                                System.out.println("Amount must be more than 0.");
+                            } else if (amount > balance) {
+                                System.out.println("Not enough balance.");
+                            } else if ((balance - amount) < 500) {
+                                // Check for minimum balance rule
+                                System.out.println("Cannot withdraw. Minimum balance of 500 must be maintained.");
+                            } else {
+                                // Successful withdrawal
+                                balance -= amount; // Subtract amount from balance
+                                withdrawalCount++; // Increase withdrawal count
+                                System.out.println("Withdrawn: " + amount);
+                                System.out.println("New balance: " + balance);
+                                break; // Exit withdrawal loop
+                            }
+                        } catch (NumberFormatException e) {
+                            // Handle invalid input (e.g., letters)
+                            System.out.println("Enter a valid number.");
+                        }
+                    }
+                    break;
+
+                // Option 3: Deposit
+                case 3:
+                    // Loop until a valid deposit amount is entered
+                    while (true) {
+                        System.out.print("Deposit amount: ");
+                        String depositInput = input.nextLine(); // Read deposit input
+
+                        try {
+                            double amount = Double.parseDouble(depositInput); // Convert to double
+
+                            if (amount <= 0) {
+                                System.out.println("Amount must be more than 0.");
+                            } else {
+                                balance += amount; // Add amount to balance
+                                System.out.println("Deposited: " + amount);
+                                System.out.println("New balance: " + balance);
+                                break; // Exit deposit loop
+                            }
+                        } catch (NumberFormatException e) {
+                            // Handle invalid input
+                            System.out.println("Enter a valid number.");
+                        }
+                    }
+                    break;
+
+                // Option 4: Exit
+                case 4:
+                    System.out.println("Thank you!");
+                    System.out.println("Have a great day!");
+                    break;
+
+                // If user enters a number not between 1 and 4
+                default:
+                    System.out.println("Choice must be between 1 and 4.");
+            }
+
+        } while (choice != 4); // Repeat loop until user chooses to exit
+
+        // Close the scanner to avoid resource leak
+        input.close();
+    }
+}
