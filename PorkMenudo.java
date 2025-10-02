@@ -36,16 +36,12 @@ public class PorkMenudo {
                 break;
             } else {
                 attempts--;
-                if (attempts > 0) {
-                    System.out.println("Incorrect PIN. Attempts left: " + attempts);
-                } else {
-                    System.out.println("Account not found!");
-                }
+                System.out.println("Account not found!");
             }
         }
 
         if (!loggedIn) {
-            System.out.println("Too many incorrect attempts. Exiting...");
+            System.out.println("Too many failed attempts. Exiting...");
             input.close();
             System.exit(0);
         }
